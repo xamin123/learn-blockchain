@@ -1,0 +1,29 @@
+{
+    "name": "xamin123/learn-blockchain",
+    "description": "I am study blockchain",
+    "autoload": {
+        "psr-4": {
+            "Xamin123\\LearnBlockchain\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergey Bakanov",
+            "email": "sergeybknv@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^6.0",
+        "ext-openssl": "*",
+        "ext-gmp": "*",
+        "ramsey/uuid": "^4.2",
+        "symfony/dependency-injection": "^6.0",
+        "symfony/serializer": "^6.0",
+        "symfony/event-dispatcher": "^6.0",
+        "tuupola/base58": "^2.1"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.4",
+        "jetbrains/phpstorm-attributes": "^1.0"
+    }
+}
