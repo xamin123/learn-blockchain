@@ -13,9 +13,9 @@
         }
     ],
     "require": {
-        "symfony/console": "^6.0",
         "ext-openssl": "*",
         "ext-gmp": "*",
+        "symfony/console": "^6.0",
         "ramsey/uuid": "^4.2",
         "symfony/dependency-injection": "^6.0",
         "symfony/serializer": "^6.0",
