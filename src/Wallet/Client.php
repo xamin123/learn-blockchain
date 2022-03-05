@@ -2,6 +2,8 @@
 
 namespace Xamin123\LearnBlockchain\Wallet;
 
+use RuntimeException;
+use Xamin123\LearnBlockchain\Common\ValueObject\Address;
 use Xamin123\LearnBlockchain\Common\Exception\SignException;
 use Xamin123\LearnBlockchain\Common\Transaction\Transaction;
 use Xamin123\LearnBlockchain\Common\Transaction\TransactionSigner;
@@ -16,7 +18,7 @@ class Client
     ) {
     }
 
-    public function sendPayment(string $addressTo, float|int $amount): void
+    public function sendPayment(Address $addressTo, float|int $amount): void
     {
         $keys = $this->wallet->getKeys();
         $userTo = $this->addressEncoder->getPrivateKeyHash($addressTo);
@@ -24,7 +26,7 @@ class Client
         try {
             $signedPayment = $this->paymentSigner->sign($payment, $keys->privateKey);
         } catch (SignException $e) {
-            throw new \RuntimeException($e->getMessage(), 0, $e);
+            throw new RuntimeException($e->getMessage(), 0, $e);
         }
         $this->nodeApi->sendPayment($signedPayment);
     }
