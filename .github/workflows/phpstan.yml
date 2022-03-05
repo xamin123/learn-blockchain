@@ -1,15 +1,19 @@
 name: PHPStan static analyze
 
-on: [push]
+on: [ push ]
 
 jobs:
   phpstan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: php-actions/composer@v6
 
-      - name: PHPStan Static Analysis
+      - uses: php-actions/composer@v6
+        with:
+          args: --ignore-platform-reqs
+
+      - name: PHPStan analyze
         uses: php-actions/phpstan@master
         with:
           path: src/
+          level: 8
