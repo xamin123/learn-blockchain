@@ -4,12 +4,15 @@ namespace Xamin123\LearnBlockchain\Common\Transaction;
 
 use JetBrains\PhpStorm\Pure;
 use Xamin123\LearnBlockchain\Common\Contract\MessageSignerInterface;
+use Xamin123\LearnBlockchain\Common\ValueObject\PrivateKey;
+use Xamin123\LearnBlockchain\Common\ValueObject\Signature;
 use Xamin123\LearnBlockchain\Common\Exception\SignException;
 use Xamin123\LearnBlockchain\Common\Exception\VerifyException;
-use Xamin123\LearnBlockchain\Common\User\KeysPair;
+
+use function is_string;
 
 /**
- * @implements MessageSignerInterface<Transaction, SignedTransaction, string>
+ * @implements MessageSignerInterface<Transaction, SignedTransaction, PrivateKey>
  */
 class TransactionSigner implements MessageSignerInterface
 {
@@ -30,7 +33,7 @@ class TransactionSigner implements MessageSignerInterface
 
     /**
      * @param Transaction $message
-     * @param string $privateData
+     * @param PrivateKey $privateData
      * @return SignedTransaction
      * @throws SignException
      */
@@ -38,7 +41,7 @@ class TransactionSigner implements MessageSignerInterface
     {
         [$payment, $privateKey] = [$message, $privateData];
         $serializedPayment = $this->serializer->serialize($payment);
-        $result = openssl_sign($serializedPayment, $signature, $privateKey, $this->signAlgo);
+        $result = openssl_sign($serializedPayment, $signature, $privateKey->value, $this->signAlgo);
         if ($result === false) {
             throw new SignException();
         }
@@ -47,7 +50,7 @@ class TransactionSigner implements MessageSignerInterface
             throw new SignException();
         }
 
-        return new SignedTransaction($payment->publicKey, $payment->userTo, $payment->amount, $signature);
+        return new SignedTransaction($payment->publicKey, $payment->userTo, $payment->amount, new Signature($signature));
     }
 
     /**
