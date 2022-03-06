@@ -11,7 +11,7 @@ use Xamin123\LearnBlockchain\Common\Transaction\TransactionSigner;
 class Client
 {
     public function __construct(
-        private readonly Wallet $wallet,
+        private readonly WalletInterface $wallet,
         private readonly AddressEncoder $addressEncoder,
         private readonly TransactionSigner $paymentSigner,
         private readonly NodeApiInterface $nodeApi
