@@ -4,7 +4,7 @@ namespace Xamin123\LearnBlockchain\Wallet;
 
 use Tuupola\Base58;
 use Xamin123\LearnBlockchain\Common\ValueObject\Address;
-use Xamin123\LearnBlockchain\Common\ValueObject\PrivateHashKey;
+use Xamin123\LearnBlockchain\Common\ValueObject\PublicKeyHash;
 
 class AddressEncoder
 {
@@ -19,13 +19,13 @@ class AddressEncoder
         ]);
     }
 
-    public function createAddress(PrivateHashKey $privateKeyHash): Address
+    public function createAddress(PublicKeyHash $privateKeyHash): Address
     {
         return new Address($this->base58check->encode($privateKeyHash));
     }
 
-    public function getPrivateKeyHash(Address $address): PrivateHashKey
+    public function getPrivateKeyHash(Address $address): PublicKeyHash
     {
-        return new PrivateHashKey($this->base58check->decode($address));
+        return new PublicKeyHash($this->base58check->decode($address));
     }
 }

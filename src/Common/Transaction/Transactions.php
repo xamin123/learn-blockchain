@@ -3,7 +3,7 @@
 namespace Xamin123\LearnBlockchain\Common\Transaction;
 
 use Generator;
-use Xamin123\LearnBlockchain\Common\User\PrivateHashKeyFactory;
+use Xamin123\LearnBlockchain\Common\User\PublicKeyHashFactory;
 
 use function array_key_exists;
 
@@ -21,14 +21,14 @@ class Transactions
     /** @var array<string, float|int> */
     private array $balanceByUser = [];
 
-    public function __construct(private readonly PrivateHashKeyFactory $privateHashKeyFactory)
+    public function __construct(private readonly PublicKeyHashFactory $publicKeyHashFactory)
     {
     }
 
     public function append(SignedTransaction $transaction): void
     {
         $this->transactions[] = $transaction;
-        $userFrom = (string)$this->privateHashKeyFactory->create($transaction->publicKey);
+        $userFrom = (string)$this->publicKeyHashFactory->create($transaction->publicKey);
         $userTo = (string)$transaction->userTo;
 
         $this->indexedByFrom[$userFrom][] = $transaction;
