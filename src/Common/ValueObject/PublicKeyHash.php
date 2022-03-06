@@ -4,7 +4,7 @@ namespace Xamin123\LearnBlockchain\Common\ValueObject;
 
 use Stringable;
 
-class PrivateHashKey implements Stringable
+class PublicKeyHash implements Stringable
 {
     use StringableClassTrait;
 }
