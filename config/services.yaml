@@ -1,0 +1,15 @@
+parameters:
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  Xamin123\LearnBlockchain\:
+    resource: '../src/*'
+    exclude:
+      - '../src/Common/{ValueObject}'
+
+  Xamin123\LearnBlockchain\UI\Console\AppCommand:
+    public: true
